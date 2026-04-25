@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AAT Elite Services | Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b1120 0%, #0a0f1c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        /* Main Container */
+        .login-container {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(18, 25, 45, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(66, 153, 225, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        /* Logo Area */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            border-bottom: 1px dashed rgba(56, 189, 248, 0.4);
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899, #f59e0b);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            animation: float3D 3s ease-in-out infinite, glowPulse 2s infinite;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        .logo-icon::after {
+            content: 'AE';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c084fc, #f472b6);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.6;
+            animation: shadowDrift 3s infinite;
+        }
+
+        @keyframes float3D {
+            0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateY(-8px) rotateX(5deg) rotateY(5deg); }
+            100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(139, 92, 246, 1), 0 0 45px rgba(236, 72, 153, 0.6); }
+        }
+
+        @keyframes shadowDrift {
+            0% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(4px, 4px); opacity: 0.8; }
+            100% { transform: translate(0, 0); opacity: 0.5; }
+        }
+
+        .logo-text { text-align: left; }
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #f0f9ff, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            animation: textShine 3s linear infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes textShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: #c084fc;
+            margin-top: 2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .slogan {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Form Card */
+        .form-card { padding: 2rem 1.8rem; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+        .input-group label { font-size: 0.85rem; font-weight: 600; color: #e2e8ff; letter-spacing: 0.3px; }
+        .input-group input {
+            background: #0f172a;
+            border: 1px solid #2d3a5e;
+            border-radius: 1.2rem;
+            padding: 14px 18px;
+            color: #eef4ff;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+        }
+
+        /* Password Wrapper with Eye Button */
+        .password-wrapper { position: relative; display: flex; align-items: center; }
+        .password-wrapper input { flex: 1; padding-right: 50px; }
+        .eye-icon {
+            position: absolute;
+            right: 16px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: #94a3b8;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye-icon:hover { color: #c084fc; }
+
+        /* Buttons */
+        .submit-btn {
+            background: linear-gradient(100deg, #8b5cf6, #6d28d9);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(100deg, #a78bfa, #7c3aed);
+            transform: scale(0.98);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .pill-btn {
+            background: #1e2a47;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .pill-btn:hover { background: #2d3a5e; }
+
+        /* Change Password Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .change-pwd-card {
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 1.8rem;
+            padding: 2rem;
+            width: 420px;
+            max-width: 90%;
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .change-pwd-card h3 {
+            color: #c084fc;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .flex-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .flex-buttons button { flex: 1; }
+
+        .info-text {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            padding-top: 1rem;
+        }
+
+        .change-pwd-link { text-align: center; margin-top: 1rem; }
+        .change-pwd-link a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .change-pwd-link a:hover { color: #c084fc; text-decoration: underline; }
+
+        .error-message {
+            background: rgba(220, 38, 38, 0.2);
+            border-left: 4px solid #ef4444;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            color: #fca5a5;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border-left: 4px solid #10b981;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            color: #86efac;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e293b;
+            border-left: 5px solid #10b981;
+            padding: 12px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 500;
+            z-index: 2100;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container" id="loginContainer">
+    <div class="logo-area">
+        <div class="logo-icon">AAT</div>
+        <div class="logo-text">
+            <h1>AAT Elite Services</h1>
+            <p>Innovate • Elevate • Dominate</p>
+            <div class="slogan">⚡ Where Tech Meets Trust ⚡</div>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <div id="loginMessageArea"></div>
+        <div class="input-group">
+            <label>📧 Admin Email</label>
+            <input type="email" id="adminEmail" placeholder="aateliteservices@gmail.com" value="aateliteservices@gmail.com">
+        </div>
+        <div class="input-group">
+            <label>🔒 Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="adminPassword" placeholder="Enter your password">
+                <button type="button" class="eye-icon" id="togglePasswordBtn">👁️</button>
+            </div>
+        </div>
+        <button class="submit-btn" id="loginBtn">🔐 Access Dashboard</button>
+        <div class="change-pwd-link">
+            <a id="changePwdLink">🔑 Change Admin Password</a>
+        </div>
+        <div class="info-text">
+            Default: aateliteservices@gmail.com / 123456
+        </div>
+    </div>
+</div>
+
+<div id="notification-area"></div>
+
+<script>
+    // Admin Credentials Storage
+    const DEFAULT_EMAIL = "aateliteservices@gmail.com";
+    let currentPassword = localStorage.getItem('aat_admin_password') || "123456";
+
+    // Helper: Show notification
+    function showMessage(msg, isError = false) {
+        const container = document.getElementById('notification-area');
+        const notif = document.createElement('div');
+        notif.className = 'notification';
+        notif.style.background = isError ? '#7f1a1a' : '#0f3b2c';
+        notif.style.borderLeftColor = isError ? '#ef4444' : '#10b981';
+        notif.innerText = msg;
+        container.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+    }
+
+    // Toggle Password Visibility (Eye button)
+    const toggleBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('adminPassword');
+    
+    if (toggleBtn && passwordInput) {
+        toggleBtn.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+    }
+
+    // Login Handler
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        const email = document.getElementById('adminEmail').value.trim();
+        const pwd = document.getElementById('adminPassword').value;
+        const messageArea = document.getElementById('loginMessageArea');
+
+        messageArea.innerHTML = '';
+
+        if (email === DEFAULT_EMAIL && pwd === currentPassword) {
+            showMessage("✅ Login successful! Redirecting...", false);
+            localStorage.setItem('aat_admin_logged_in', 'true');
+            setTimeout(() => {
+                // To integrate with your uploaded file, we redirect to it.
+                // Replace "AAT Elite Services.html" with the actual path if different.
+                window.location.href = "AAT Elite Services.html"; 
+            }, 800);
+        } else {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerText = '❌ Invalid email or password. Access denied.';
+            messageArea.appendChild(errorDiv);
+            showMessage("Invalid credentials.", true);
+        }
+    });
+
+    // Change Password Modal Logic
+    let modalActive = false;
+
+    function showChangePasswordModal() {
+        if (modalActive) return;
+        
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.id = 'changePwdModal';
+        modalOverlay.innerHTML = `
+            <div class="change-pwd-card">
+                <h3>🔐 Change Admin Password</h3>
+                <div class="input-group">
+                    <label>Current Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="currentPwdInput" placeholder="Enter current password">
+                        <button type="button" class="eye-icon" id="toggleCurrentPwd">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>New Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="newPwdInput" placeholder="Min 4 characters">
+                        <button type="button" class="eye-icon" id="toggleNewPwd">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Confirm New Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPwdInput" placeholder="Re-enter new password">
+                        <button type="button" class="eye-icon" id="toggleConfirmPwd">👁️</button>
+                    </div>
+                </div>
+                <div class="flex-buttons">
+                    <button class="submit-btn" id="savePasswordBtn" style="background: linear-gradient(100deg, #10b981, #059669);">Update Password</button>
+                    <button class="pill-btn" id="cancelPwdBtn" style="background: #475569;">Cancel</button>
+                </div>
+                <div id="pwdMessageArea" style="margin-top: 12px;"></div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalOverlay);
+        modalActive = true;
+
+        function setupEyeToggle(btnId, inputId) {
+            const btn = document.getElementById(btnId);
+            const input = document.getElementById(inputId);
+            if (btn && input) {
+                btn.addEventListener('click', () => {
+                    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                    input.setAttribute('type', type);
+                    btn.textContent = type === 'password' ? '👁️' : '🙈';
+                });
+            }
+        }
+        
+        setupEyeToggle('toggleCurrentPwd', 'currentPwdInput');
+        setupEyeToggle('toggleNewPwd', 'newPwdInput');
+        setupEyeToggle('toggleConfirmPwd', 'confirmPwdInput');
+
+        const saveBtn = document.getElementById('savePasswordBtn');
+        const cancelBtn = document.getElementById('cancelPwdBtn');
+        const msgDiv = document.getElementById('pwdMessageArea');
+
+        saveBtn.addEventListener('click', () => {
+            const current = document.getElementById('currentPwdInput').value;
+            const newPwd = document.getElementById('newPwdInput').value;
+            const confirmPwd = document.getElementById('confirmPwdInput').value;
+            
+            msgDiv.innerHTML = '';
+            
+            if (current !== currentPassword) {
+                const err = document.createElement('div');
+                err.className = 'error-message';
+                err.innerText = '❌ Current password is incorrect.';
+                msgDiv.appendChild(err);
+                return;
+            }
+            if (newPwd.length < 4) {
+                const err = document.createElement('div');
+                err.className = 'error-message';
+                err.innerText = '❌ New password must be at least 4 characters.';
+                msgDiv.appendChild(err);
+                return;
+            }
+            if (newPwd !== confirmPwd) {
+                const err = document.createElement('div');
+                err.className = 'error-message';
+                err.innerText = '❌ New password and confirmation do not match.';
+                msgDiv.appendChild(err);
+                return;
+            }
+            
+            currentPassword = newPwd;
+            localStorage.setItem('aat_admin_password', currentPassword);
+            
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.innerText = '✅ Password changed successfully!';
+            msgDiv.appendChild(successDiv);
+            
+            showMessage("Admin password updated.", false);
+            
+            setTimeout(() => {
+                if (modalOverlay && modalOverlay.parentNode) {
+                    modalOverlay.remove();
+                    modalActive = false;
+                }
+            }, 1500);
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            modalOverlay.remove();
+            modalActive = false;
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.remove();
+                modalActive = false;
+            }
+        });
+    }
+
+    document.getElementById('changePwdLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        showChangePasswordModal();
+    });
+
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    };
+    document.getElementById('adminPassword').addEventListener('keypress', handleEnter);
+    document.getElementById('adminEmail').addEventListener('keypress', handleEnter);
+</script>
+</body>
+</html>

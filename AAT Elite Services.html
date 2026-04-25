@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AAT Elite Services | Bill Preview with WhatsApp Send</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* YOUR COMPLETE ORIGINAL CSS - PRESERVED */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; }
+        body { background: linear-gradient(145deg, #0b1120 0%, #0a0f1c 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 24px; }
+        .app-container { max-width: 1400px; width: 100%; background: rgba(18, 25, 45, 0.65); backdrop-filter: blur(2px); border-radius: 2rem; box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; border: 1px solid rgba(66, 153, 225, 0.25); }
+        .dashboard-layout { display: flex; flex-wrap: wrap; }
+        .sidebar { width: 280px; background: rgba(10, 16, 28, 0.85); backdrop-filter: blur(12px); padding: 2rem 1.2rem; border-right: 1px solid rgba(56, 189, 248, 0.2); transition: all 0.2s; }
+        .logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px dashed rgba(56, 189, 248, 0.4); position: relative; }
+        .logo-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #8b5cf6, #ec4899, #f59e0b); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; color: white; position: relative; animation: float3D 3s ease-in-out infinite, glowPulse 2s infinite; box-shadow: 0 10px 25px -5px rgba(139,92,246,0.5); cursor: pointer; }
+        .logo-icon::after { content: 'AE'; position: absolute; top: 4px; left: 4px; width: 100%; height: 100%; background: linear-gradient(135deg, #c084fc, #f472b6); border-radius: 20px; display: flex; align-items: center; justify-content: center; z-index: -1; filter: blur(8px); opacity: 0.7; animation: shadowDrift 3s infinite; }
+        @keyframes float3D { 0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); } 50% { transform: translateY(-8px) rotateX(5deg) rotateY(5deg); } 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); } }
+        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 15px rgba(139,92,246,0.6); } 50% { box-shadow: 0 0 30px rgba(139,92,246,1), 0 0 45px rgba(236,72,153,0.6); } }
+        @keyframes shadowDrift { 0% { transform: translate(0, 0); opacity: 0.5; } 50% { transform: translate(4px, 4px); opacity: 0.8; } 100% { transform: translate(0, 0); opacity: 0.5; } }
+        .logo-text h1 { font-size: 1.7rem; font-weight: 800; background: linear-gradient(120deg, #f0f9ff, #c084fc, #f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -0.3px; animation: textShine 3s linear infinite; background-size: 200% auto; }
+        @keyframes textShine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        .logo-text p { font-size: 0.7rem; color: #c084fc; margin-top: 2px; font-weight: 500; letter-spacing: 1px; }
+        .slogan { font-size: 0.65rem; color: #94a3b8; margin-top: 4px; font-style: italic; }
+        .nav-links { display: flex; flex-direction: column; gap: 12px; margin-top: 1rem; }
+        .nav-btn { background: transparent; border: none; text-align: left; padding: 12px 18px; font-size: 1rem; font-weight: 500; border-radius: 1.2rem; color: #b9c7da; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; }
+        .nav-btn i { font-style: normal; font-weight: 600; width: 28px; }
+        .nav-btn.active { background: linear-gradient(95deg, #4c1d95, #2e1065); color: white; box-shadow: 0 6px 12px -8px #4c1d95; border-left: 3px solid #c084fc; }
+        .nav-btn:hover:not(.active) { background: rgba(139, 92, 246, 0.1); color: #e2e8ff; transform: translateX(5px); }
+        .main-panel { flex: 1; padding: 2rem 2rem; background: rgba(8, 12, 22, 0.5); }
+        .stat-cards { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 32px; }
+        .card { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); border-radius: 1.5rem; padding: 1.2rem 1.5rem; flex: 1; min-width: 180px; border: 1px solid rgba(139,92,246,0.3); transition: 0.2s; }
+        .card:hover { transform: translateY(-5px); border-color: rgba(139,92,246,0.6); }
+        .card-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; }
+        .card-value { font-size: 2.2rem; font-weight: 700; color: #f1f5f9; margin-top: 8px; }
+        .profit-positive { color: #4ade80; }
+        .profit-negative { color: #f87171; }
+        .form-card, .table-wrapper, .services-grid { background: rgba(12, 18, 34, 0.75); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139,92,246,0.2); margin-top: 20px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group label { font-size: 0.8rem; font-weight: 500; color: #ffffff; }
+        .input-group input, .input-group textarea, .input-group select { background: #0f172a; border: 1px solid #2d3a5e; border-radius: 1rem; padding: 12px 16px; color: #eef4ff; font-size: 0.9rem; transition: 0.2s; }
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { outline: none; border-color: #8b5cf6; box-shadow: 0 0 0 2px rgba(139,92,246,0.3); }
+        button.submit-btn { background: linear-gradient(100deg, #8b5cf6, #6d28d9); border: none; padding: 12px 28px; border-radius: 40px; font-weight: bold; font-size: 1rem; color: white; cursor: pointer; transition: all 0.2s; }
+        button.submit-btn:hover { background: linear-gradient(100deg, #a78bfa, #7c3aed); transform: scale(0.98); }
+        .warranty-row { display: flex; gap: 12px; align-items: flex-end; }
+        .warranty-row .input-group { flex: 1; }
+        table { width: 100%; border-collapse: collapse; color: #ffffff; }
+        th, td { padding: 12px 8px; border-bottom: 1px solid #1e2a46; text-align: left; }
+        th { color: #ffffff; font-weight: 600; background: rgba(139, 92, 246, 0.2); }
+        .notification { position: fixed; bottom: 30px; right: 30px; background: #1e293b; border-left: 5px solid #10b981; padding: 12px 24px; border-radius: 40px; color: white; font-weight: 500; z-index: 200; box-shadow: 0 10px 20px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .tab-pane { display: none; animation: fade 0.2s ease; }
+        .tab-pane.active-tab { display: block; }
+        @keyframes fade { from { opacity:0; } to { opacity:1; } }
+        .pill-btn { background: #1e2a47; border: none; padding: 8px 20px; border-radius: 40px; color: white; cursor: pointer; transition: 0.2s; }
+        .pill-btn.active-pill { background: #8b5cf6; }
+        .bill-btn, .delete-btn { background: #10b981; color: white; border: none; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; }
+        .wa-btn { background: #25D366; margin-left: 5px; }
+        .wa-btn:hover { background: #128C7E; }
+        .delete-btn { background: #dc2626; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .bill-container { background: white; max-width: 550px; width: 90%; border-radius: 20px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .bill-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px dashed #e5e7eb; position: relative; }
+        .bill-header h2 { color: #1f2937; font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, #8b5cf6, #ec4899); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .stamp-bill { position: absolute; top: 20px; right: 20px; width: 90px; height: 90px; border-radius: 50%; border: 3px solid #dc2626; background: rgba(220, 38, 38, 0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-15deg); opacity: 0.8; }
+        .stamp-bill span:first-child { font-size: 14px; font-weight: bold; color: #dc2626; }
+        .stamp-bill span:last-child { font-size: 10px; color: #dc2626; font-weight: 600; }
+        .bill-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
+        .bill-row.total { margin-top: 15px; padding-top: 15px; border-top: 2px solid #e5e7eb; font-weight: bold; }
+        .action-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .action-buttons button { flex: 1; padding: 12px; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-wa-send { background: #25D366; color: white; }
+        .btn-wa-send:hover { background: #128C7E; }
+        .btn-print { background: #10b981; color: white; }
+        .btn-print:hover { background: #059669; }
+        .btn-cancel { background: #ef4444; color: white; }
+        .btn-cancel:hover { background: #dc2626; }
+        .services-category { margin-top: 32px; }
+        .services-category h4 { font-size: 1.3rem; color: #c4b5fd; margin-bottom: 18px; border-left: 4px solid #8b5cf6; padding-left: 15px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; background: transparent; padding: 0; margin-top: 0; }
+        .service-tag { background: linear-gradient(95deg, #2d3a5e, #1e2a47); padding: 14px 12px; border-radius: 40px; text-align: center; font-size: 0.85rem; font-weight: 500; color: #c4b5fd; border: 1px solid #4c1d95; transition: 0.2s; }
+        .service-tag:hover { transform: translateY(-3px); background: linear-gradient(95deg, #4c1d95, #2e1065); color: white; border-color: #c084fc; }
+        .info-text { color: #94a3b8; font-size: 0.9rem; margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 20px; text-align: center; }
+        .section-title { color: #ffffff; font-size: 1.2rem; margin: 20px 0 10px 0; border-left: 4px solid #8b5cf6; padding-left: 12px; }
+        .btn-action { padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: 600; margin-right: 5px; color: white; }
+        .btn-offer { background: #10b981; }
+        .btn-cert { background: #3b82f6; }
+        .btn-lor { background: #8b5cf6; }
+        .btn-del { background: #ef4444; }
+        .btn-edit { background: #f59e0b; }
+        .doc-modal .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 1100; overflow-y: auto; padding: 50px 20px; }
+        .doc-modal .modal.active { display: block; }
+        .modal-controls { text-align: center; margin-bottom: 30px; }
+        .a4-portrait { width: 210mm; height: 297mm; background: white; margin: 0 auto; padding: 25mm; position: relative; color: #1e293b; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .a4-landscape { width: 297mm; height: 210mm; background: white; margin: 0 auto; padding: 15mm; position: relative; color: #1e293b; border: 15px double #8b5cf6; }
+        .stamp { position: absolute; bottom: 80px; right: 80px; width: 120px; height: 120px; border: 4px solid #dc2626; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-15deg); color: #dc2626; font-weight: bold; text-transform: uppercase; opacity: 0.8; font-size: 14px; line-height: 1.2; background: rgba(255,255,240,0.4); pointer-events: none; z-index: 10; }
+        .signature { position: absolute; bottom: 50px; left: 80px; font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #1e293b; border-bottom: 2px solid #333; min-width: 200px; text-align: center; }
+        .sig-sub { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: bold; margin-top: -5px; color: #1e293b; }
+        @media print {
+            body * { visibility: hidden; }
+            .printable, .printable * { visibility: visible; }
+            .printable { position: absolute; left: 0; top: 0; width: 100%; color: #000 !important; }
+            .bill-header h2 { background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; color: #000 !important; }
+            .modal { background: none !important; position: absolute !important; }
+            .action-buttons, .close-bill, .no-print, .submit-btn, .nav-btn, .sidebar { display: none !important; }
+        }
+        @media (max-width: 760px) { .sidebar { width: 100%; } .main-panel { padding: 1.2rem; } }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="dashboard-layout">
+        <div class="sidebar no-print">
+            <div class="logo-area">
+                <div class="logo-icon">AAT</div>
+                <div class="logo-text">
+                    <h1>AAT Elite Services</h1>
+                    <p>Innovate • Elevate • Dominate</p>
+                    <div class="slogan">⚡ Where Tech Meets Trust ⚡</div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-tab="sales-entry-tab"><i>🛒</i> Sales Entry</button>
+                <button class="nav-btn" data-tab="daily-report-tab"><i>📅</i> Daily Reports</button>
+                <button class="nav-btn" data-tab="historical-tab"><i>📊</i> Analytics & Reports</button>
+                <button class="nav-btn" data-tab="intern-tab"><i>👩‍💻</i> Intern Management</button>
+                <button class="nav-btn" data-tab="service-hub-tab"><i>🌟</i> Our Service</button>
+                <button class="nav-btn" data-tab="expense-inventory-tab"><i>💰</i> Expenses & Stock</button>
+            </div>
+        </div>
+
+        <div class="main-panel">
+            <div id="sales-entry-tab" class="tab-pane active-tab">
+                <div class="stat-cards">
+                    <div class="card">
+                        <div class="card-title">⚡ Instant Preview</div>
+                        <div class="card-value" id="dynamicProfit">PKR 0.00</div>
+                        <div class="profit-hint" style="color: #ffffff;">Profit = Sale Price - Cost (PKR)</div>
+                    </div>
+                </div>
+                <div class="form-card">
+                    <h3 style="color:#ffffff; margin-bottom: 1rem;">➕ New Sale Entry (Auto Product Code + Warranty)</h3>
+                    <form id="salesForm">
+                        <div class="form-grid">
+                            <div class="input-group"><label>📦 Product Code (Auto-generated)</label><input type="text" id="product_code" readonly style="background:#2d3a5e; font-weight:bold;"></div>
+                            <div class="input-group"><label>Product Name *</label><input type="text" id="product_name" required placeholder="e.g., Gaming Laptop"></div>
+                            <div class="input-group"><label>Buyer Name *</label><input type="text" id="buyer_name" required placeholder="Full name"></div>
+                            <div class="input-group"><label>Buyer Phone (WhatsApp) *</label><input type="tel" id="buyer_phone" required pattern="[0-9]{10,15}" placeholder="03001234567"></div>
+                            <div class="input-group"><label>Sale Price (PKR) *</label><input type="number" id="sale_price" step="0.01" required></div>
+                            <div class="input-group"><label>Cost Price (PKR) *</label><input type="number" id="cost_price" step="0.01" required></div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <label style="color:#ffffff; font-size:0.8rem;">🛡️ Warranty Options</label>
+                            <div class="warranty-row">
+                                <div class="input-group"><label>Warranty Period</label><select id="warranty_type"><option value="days">Days</option><option value="months">Months</option></select></div>
+                                <div class="input-group"><label>Duration</label><input type="number" id="warranty_duration" value="0" min="0" step="1"></div>
+                                <div class="input-group"><label>Issue Date</label><input type="date" id="issue_date" required></div>
+                                <div class="input-group"><label>Expiry Date</label><input type="date" id="expiry_date" readonly style="background:#1e293b;"></div>
+                            </div>
+                        </div>
+                        <div class="input-group"><label>Description</label><textarea id="description" rows="2" placeholder="Any notes..."></textarea></div>
+                        <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                            <button type="submit" class="submit-btn">💾 Save & Show Bill</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="daily-report-tab" class="tab-pane">
+                <div class="stat-cards">
+                    <div class="card"><div class="card-title">📱 Today's Sales</div><div class="card-value" id="dailyCount">0</div></div>
+                    <div class="card"><div class="card-title">💰 Daily Profit/Loss</div><div class="card-value" id="dailyProfit">PKR 0</div></div>
+                </div>
+                <div class="table-wrapper">
+                    <h3 style="margin-bottom: 12px; color: #ffffff;">Today's Sales (PKR)</h3>
+                    <table id="dailyTable"><thead><tr><th>Product</th><th>Buyer</th><th>Sale Price</th><th>Cost</th><th>Profit</th><th>Warranty Expiry</th><th>Action</th></tr></thead><tbody><tr><td colspan="7" class="empty-state">No sales today</td></tr></tbody></table>
+                </div>
+            </div>
+
+            <div id="historical-tab" class="tab-pane">
+                <div class="report-selector" style="display: flex; gap: 12px; margin-bottom: 20px;">
+                    <button class="pill-btn active-pill" data-analytics="monthly">📆 Monthly Analytics</button>
+                    <button class="pill-btn" data-analytics="yearly">🗓️ Yearly Analytics</button>
+                </div>
+                <div class="search-section" style="margin-bottom: 20px;">
+                    <div class="input-group"><label>🔍 Search by Product/Buyer</label><input type="text" id="globalSearchInput" placeholder="Product code or buyer name..."></div>
+                    <button class="pill-btn" id="clearSearchBtn" style="margin-top: 24px;">Clear Search</button>
+                </div>
+                <div class="stat-cards">
+                    <div class="card"><div class="card-title" id="statsTitle">Total Units</div><div class="card-value" id="histUnits">0</div></div>
+                    <div class="card"><div class="card-title">Net Profit (PKR)</div><div class="card-value" id="histProfitVal">PKR 0</div></div>
+                </div>
+                <div class="table-wrapper"><h3 id="histTableTitle" style="color: #ffffff;">Monthly Sales Summary</h3><table id="historicalTable"><thead><tr><th>Period</th><th>Sales Count</th><th>Profit (PKR)</th></tr></thead><tbody id="historicalTableBody"></tbody></table></div>
+                <div class="table-wrapper" style="margin-top: 20px;"><h4 style="color: #ffffff;">🔎 Detailed Search Results</h4><table id="searchDetailsTable"><thead><tr><th>Date</th><th>Code</th><th>Product</th><th>Buyer</th><th>Sale(PKR)</th><th>Profit</th><th>Warranty Expiry</th><th>Action</th></tr></thead><tbody id="searchDetailsBody"><tr><td colspan="8" class="empty-state">Use search above</td></tr></tbody></table></div>
+            </div>
+
+            <div id="intern-tab" class="tab-pane">
+                <div class="form-card">
+                    <h3 style="margin-bottom: 20px; color: #c084fc;">Register New Intern</h3>
+                    <form id="internForm">
+                        <div class="form-grid">
+                            <div class="input-group"><label>Intern ID (Auto-generated - Read Only)</label><input type="text" id="intern_unique_id" readonly style="background:#2d3a5e; font-weight:bold;"></div>
+                            <div class="input-group"><label>Full Name</label><input type="text" id="intern_name" placeholder="Enter Full Name" required></div>
+                            <div class="input-group"><label>Email Address</label><input type="email" id="intern_email" placeholder="intern@gmail.com" required></div>
+                            <div class="input-group"><label>Contact/WhatsApp</label><input type="tel" id="intern_phone" placeholder="03XXXXXXXXX" required></div>
+                            <div class="input-group"><label>Internship Field</label><select id="intern_field"><option>Front-end developer</option><option>Full stack developer</option><option>Graphic designer</option><option>AutoCAD</option><option>Advance data management (Excel)</option><option>C++ developer</option><option>Java developer</option><option>Python developer</option><option>App developer</option><option>3D animation</option></select></div>
+                            <div class="input-group"><label>Start Date</label><input type="date" id="intern_start_date" required></div>
+                            <div class="input-group"><label>Duration (Months)</label><input type="number" id="intern_duration" value="1" min="1"></div>
+                            <div class="input-group"><label>End Date (Auto)</label><input type="date" id="intern_end_date" readonly style="opacity: 0.7;"></div>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 15px;">
+                            <button type="submit" class="submit-btn" id="internSubmitBtn">💾 Register Intern</button>
+                            <button type="button" class="pill-btn" id="cancelEditInternBtn" style="display:none; background:#ef4444;">Cancel Edit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+                    <label>🔍 Search Intern by Name or ID</label>
+                    <input type="text" id="internSearchInput" placeholder="e.g., AAT-001 or John Doe...">
+                </div>
+                <div class="table-wrapper">
+                    <h3 style="margin-bottom: 12px; color: #ffffff;">Internship Records</h3>
+                    <table id="internDataTable"><thead><tr><th>Intern ID</th><th>Intern Details</th><th>Field</th><th>Period</th><th>Actions</th></tr></thead><tbody id="internTableBody"></tbody></table>
+                </div>
+            </div>
+
+            <div id="service-hub-tab" class="tab-pane">
+                <div class="services-category"><h4>🖨️ Print & Branding Services</h4><div class="services-grid"><div class="service-tag">⏩ Panaflex Printing</div><div class="service-tag">⏩ Bill Book Printing</div><div class="service-tag">⏩ Stamp (Rubber / Seal)</div><div class="service-tag">📇 PVC Card Printing</div><div class="service-tag">🛡️ Shield Printing</div><div class="service-tag">📄 CV / Resume making</div><div class="service-tag">🔑 Keychain printing</div><div class="service-tag">🎬 3D animation</div><div class="service-tag">🏠 Wood working all designs</div><div class="service-tag">🏗️ 3D Building designs</div></div></div>
+                <div class="services-category"><h4>💻 Tech Support & IT Solutions</h4><div class="services-grid"><div class="service-tag">💾 Data Recovery (HDD/SSD/USB)</div><div class="service-tag">🖥️ OS Support (Win/Mac/Linux)</div><div class="service-tag">📀 Software Installation & Licensing</div><div class="service-tag">⚙️ System Upgrade (RAM/SSD)</div><div class="service-tag">🦠 Virus & Malware Removal</div><div class="service-tag">🔥 Firewall & Network Setup</div><div class="service-tag">♻️ E-scrap Recycling (Eco-friendly)</div><div class="service-tag">🎓 University electronic Projects</div></div></div>
+                <div class="services-category"><h4>🛒 Hardware, Mobile & More Store</h4><div class="services-grid"><div class="service-tag">💻 Computer & Laptops (New/Refurb)</div><div class="service-tag">📱 Used/New Mobiles</div><div class="service-tag">📟 Tablets</div><div class="service-tag">🎮 Gaming Hard Drives & USB 3.0</div><div class="service-tag">🔧 RAM, SSD, HDD (All brands)</div><div class="service-tag">🎧 Gaming Headsets & Accessories</div><div class="service-tag">🌸 Ladies/Gents Perfumes</div></div></div>
+                <div class="services-category"><h4>🚗 Motors & Property (Sales Management)</h4><div class="services-grid"><div class="service-tag">🏍️ Used Car and Bike sale</div><div class="service-tag">🏡 Property sale/purchase</div><div class="service-tag">🔋Bike Battery Chargers</div></div></div>
+                <div class="services-category"><h4>🌐 Web & Business Solutions</h4><div class="services-grid"><div class="service-tag">📈 Professional Websites (portfolio)</div><div class="service-tag">📊 Business Expense & Profit Trackers</div></div></div>
+                <div class="info-text">⚖️ We deal with every kind of matters... | 🏠 You can avail any service under one roof...</div>
+                <div class="info-text">🚚 Home delivery service available in Taxila and Wah ⭐ | remote support available. Contact AAT Elite Services for custom quotes.</div>
+                <div class="info-text" style="background: linear-gradient(95deg,#1e293b,#0f172a); border-left: 4px solid #8b5cf6;">📞 Call/WhatsApp: +92 348 7277260 | 📧 aateliteservices@gmail.com | ⭐ Trusted by 500+ businesses</div>
+            </div>
+
+            <div id="expense-inventory-tab" class="tab-pane">
+                <div class="stat-cards"><div class="card"><div class="card-title">💰 Total Expenses (Month)</div><div class="card-value" id="totalExpensesMonth">PKR 0</div></div><div class="card"><div class="card-title">📈 Net Profit (After Expenses)</div><div class="card-value" id="netProfitAfterExpenses">PKR 0</div></div></div>
+                <div class="form-card"><h3 style="color: #ffffff;">➕ Add Expense</h3><form id="expenseForm"><div class="form-grid"><div class="input-group"><label>Expense Title</label><input type="text" id="expTitle" required placeholder="Rent, Electricity, Wifi.."></div><div class="input-group"><label>Amount (PKR)</label><input type="number" id="expAmount" required step="0.01"></div><div class="input-group"><label>Date</label><input type="date" id="expDate" required></div></div><button type="submit" class="submit-btn" style="margin-top: 15px;">Add Expense</button></form></div>
+                <div class="table-wrapper"><h3 style="color: #ffffff;">📋 Expense History</h3><table id="expenseTable"><thead><tr><th>Title</th><th>Amount</th><th>Date</th><th>Action</th></tr></thead><tbody id="expenseTbody"></tbody></table><button class="pill-btn" id="exportExpenseBtn" style="margin-top: 15px;">📎 Export Expenses CSV</button></div>
+                <div class="form-card" style="margin-top:20px"><h3 style="color: #ffffff;">📦 Inventory / Stock Management</h3><form id="inventoryForm"><div class="form-grid"><div class="input-group"><label>Product Category</label><select id="invCategory"><option>Laptop</option><option>Computer</option><option>Accessories</option><option>Printer</option><option>Mobile</option><option>Perfume</option><option>Other</option></select></div><div class="input-group"><label>Product Name</label><input type="text" id="invName" required></div><div class="input-group"><label>Initial Stock</label><input type="number" id="invStock" required min="0"></div><div class="input-group"><label>Sold Units</label><input type="number" id="invSold" value="0" min="0"></div></div><button type="submit" class="submit-btn" style="margin-top: 15px;">Add/Update Stock</button></form></div>
+                <div class="table-wrapper"><h3 style="color: #ffffff;">📊 Stock Summary</h3><table id="inventoryTable"><thead><tr><th>Category</th><th>Product</th><th>Total Stock</th><th>Sold</th><th>Remaining</th><th>Action</th></tr></thead><tbody id="inventoryTbody"></tbody></table><button class="pill-btn" id="exportInventoryBtn" style="margin-top: 15px;">📎 Export Inventory CSV</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="billModal" class="modal">
+    <div class="bill-container printable" id="billContent"></div>
+</div>
+
+<div id="internDocModal" class="modal doc-modal">
+    <div class="modal-controls no-print" style="text-align:center; margin-bottom:20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <button class="submit-btn" style="width:auto; background:#10b981;" onclick="window.print()">🖨️ Print Document</button>
+        <button class="submit-btn" style="width:auto; background:#8b5cf6;" id="downloadPdfBtn">📥 Download PDF</button>
+        <button class="submit-btn" style="width:auto; background:#ea4335;" id="sendGmailBtn">📧 Send via Gmail</button>
+        <button class="submit-btn" style="width:auto; background:#4b5563;" onclick="closeInternModal()">✖ Close Preview</button>
+    </div>
+    <div id="internPrintArea" class="printable"></div>
+</div>
+
+<div id="notification-area"></div>
+
+<script>
+    // ==================== ORIGINAL DATA MANAGEMENT (PRESERVED) ====================
+    const STORAGE_KEY = 'aat_elite_sales_v2';
+    let salesData = []; let currentSearchTerm = ""; let currentAnalyticsType = "monthly";
+    let currentRecordForWhatsApp = null;
+    
+    function loadSalesData() { const stored = localStorage.getItem(STORAGE_KEY); salesData = stored ? JSON.parse(stored) : []; saveSalesData(); }
+    function saveSalesData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(salesData)); }
+    function showMessage(msg, isError = false) { const container = document.getElementById('notification-area'); const notif = document.createElement('div'); notif.className = 'notification'; notif.style.background = isError ? '#7f1a1a' : '#0f3b2c'; notif.style.borderLeftColor = isError ? '#ef4444' : '#10b981'; notif.innerText = msg; container.appendChild(notif); setTimeout(() => notif.remove(), 3000); }
+    function generateUniqueProductCode() { return `AE-${Date.now().toString().slice(-8)}${Math.floor(Math.random()*1000)}`; }
+    function updateExpiryDate() { const issueDate = document.getElementById('issue_date').value; const duration = parseInt(document.getElementById('warranty_duration').value) || 0; const type = document.getElementById('warranty_type').value; if (!issueDate || duration <= 0) { document.getElementById('expiry_date').value = ''; return; } let date = new Date(issueDate); if (type === 'days') date.setDate(date.getDate() + duration); else date.setMonth(date.getMonth() + duration); document.getElementById('expiry_date').value = date.toISOString().split('T')[0]; }
+    document.getElementById('warranty_duration')?.addEventListener('input', updateExpiryDate); document.getElementById('warranty_type')?.addEventListener('change', updateExpiryDate); document.getElementById('issue_date')?.addEventListener('change', updateExpiryDate);
+    function refreshProductCode() { const codeInput = document.getElementById('product_code'); if(codeInput) codeInput.value = generateUniqueProductCode(); }
+    refreshProductCode();
+    function addSaleRecord(saleDataObj) { const newRecord = { id: Date.now(), ...saleDataObj, sale_date: new Date().toISOString() }; salesData.unshift(newRecord); saveSalesData(); return newRecord; }
+    function deleteSaleRecord(id) { if (confirm('Delete this sale record?')) { salesData = salesData.filter(record => record.id !== id); saveSalesData(); showMessage('Record deleted'); refreshCurrentView(); } }
+    window.deleteSaleRecord = deleteSaleRecord;
+    function getFilteredSalesData() { if (!currentSearchTerm.trim()) return salesData; const term = currentSearchTerm.trim().toLowerCase(); return salesData.filter(record => record.product_code.toLowerCase().includes(term) || record.buyer_name.toLowerCase().includes(term)); }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+    
+    // ==================== WHATSAPP PNG SENDER (ORIGINAL) ====================
+    async function sendWhatsAppPNG(record) {
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'fixed';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '0';
+        tempDiv.style.width = '500px';
+        tempDiv.style.backgroundColor = 'white';
+        tempDiv.style.padding = '30px';
+        tempDiv.style.fontFamily = 'Poppins, sans-serif';
+        tempDiv.style.borderRadius = '12px';
+        tempDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+        tempDiv.innerHTML = `
+            <div style="text-align:center; border-bottom:2px solid #8b5cf6; padding-bottom:15px; margin-bottom:15px;">
+                <h2 style="color:#8b5cf6; margin:0; font-weight:700; letter-spacing:1px;">✨ AAT ELITE SERVICES ✨</h2>
+                <p style="color:#666; font-size:14px; margin:5px 0;">Innovate • Elevate • Dominate</p>
+                <p style="font-size:12px; color:#999;">Official Payment Receipt</p>
+            </div>
+            <div style="margin:10px 0; color:#333;"><strong>🧾 Invoice:</strong> #AE-${record.id.toString().slice(-8)}</div>
+            <div style="margin:10px 0; color:#333;"><strong>📅 Date:</strong> ${new Date(record.sale_date).toLocaleDateString('en-PK')}</div>
+            <div style="margin:10px 0; color:#333;"><strong>📦 Product:</strong> ${escapeHtml(record.product_name)} (${record.product_code})</div>
+            <div style="margin:10px 0; color:#333;"><strong>👤 Buyer:</strong> ${escapeHtml(record.buyer_name)}</div>
+            <div style="margin:10px 0; color:#333;"><strong>💰 Amount:</strong> PKR ${record.sale_price.toFixed(2)}</div>
+            <div style="margin:10px 0; color:#333;"><strong>🛡️ Warranty:</strong> ${record.warranty_duration > 0 ? `${record.warranty_duration} ${record.warranty_type} (Exp: ${record.expiry_date || 'N/A'})` : 'No Warranty'}</div>
+            ${record.description ? `<div style="margin:10px 0; color:#333;"><strong>📝 Notes:</strong> ${escapeHtml(record.description)}</div>` : ''}
+            <div style="margin-top:20px; padding:15px; background:linear-gradient(135deg,#f0fdf4,#dcfce7); text-align:center; border-radius:10px; border:1px solid #dcfce7;">
+                <p style="font-weight:bold; color:#166534; margin:0;">Your Order is completed! 🌟</p>
+                <p style="font-size:12px; color:#14532d; margin:5px 0;">Thank you for choosing <b>AAT Elite Services</b>.</p>
+            </div>
+            <div style="margin-top:15px; text-align:center; font-size:11px; color:#999;">
+                📞 +92 348 7277260 | 📧 aateliteservices@gmail.com
+            </div>
+        `;
+        document.body.appendChild(tempDiv);
+        
+        try {
+            showMessage("📸 Copying receipt to clipboard...", false);
+            const canvas = await html2canvas(tempDiv, { scale: 2, backgroundColor: '#ffffff' });
+            
+            canvas.toBlob(async (blob) => {
+                try {
+                    const data = [new ClipboardItem({ [blob.type]: blob })];
+                    await navigator.clipboard.write(data);
+                    
+                    let phone = record.buyer_phone.replace(/[^0-9]/g, '');
+                    if (!phone.startsWith('92') && phone.length === 10) phone = '92' + phone;
+                    if (phone.startsWith('0')) phone = '92' + phone.substring(1);
+                    
+                    const message = `Assalam-o-Alaikum! 🌟\nWelcome and thank you for choosing our services. We truly value your trust and look forward to serving you with quality and professionalism.`;
+                    
+                    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+                } catch (err) {
+                    console.error('Clipboard error:', err);
+                    showMessage("❌ Browser blocked clipboard access.", true);
+                }
+            }, 'image/png');
+
+        } catch (err) {
+            console.error('WhatsApp error:', err);
+            showMessage("❌ Failed to send.", true);
+        } finally {
+            document.body.removeChild(tempDiv);
+        }
+    }
+    
+    // ==================== BILL GENERATION (ORIGINAL) ====================
+    function generateBillWithActions(record, showWhatsAppButton = true) {
+        const date = new Date(record.sale_date); 
+        const formattedDate = date.toLocaleDateString('en-PK'); 
+        const issueDateFormatted = record.issue_date ? new Date(record.issue_date).toLocaleDateString() : 'N/A'; 
+        const expiryFormatted = record.expiry_date ? new Date(record.expiry_date).toLocaleDateString() : 'No Warranty'; 
+        const warrantyText = record.warranty_duration > 0 ? `${record.warranty_duration} ${record.warranty_type} (Exp: ${expiryFormatted})` : 'No Warranty'; 
+        const descriptionText = record.description && record.description.trim() !== "" ? record.description : "No additional notes.";
+        
+        const billHTML = `
+            <div class="bill-header">
+                <h2>✨ AAT Elite Services ✨</h2>
+                <p class="tagline">Innovation & Trust</p>
+                <div class="stamp-bill"><span>✓ AAT ELITE</span><span>Services  ✓</span></div>
+                <p>Invoice: #AE-${record.id.toString().slice(-8)}</p>
+                <p>Date: ${formattedDate}</p>
+            </div>
+            <div class="bill-details">
+                <div class="bill-row"><span>Product:</span><span>${escapeHtml(record.product_name)} (${escapeHtml(record.product_code)})</span></div>
+                <div class="bill-row"><span>Buyer:</span><span>${escapeHtml(record.buyer_name)} / ${escapeHtml(record.buyer_phone)}</span></div>
+                <div class="bill-row"><span>Issue Date:</span><span>${issueDateFormatted}</span></div>
+                <div class="bill-row"><span>Warranty:</span><span>${warrantyText}</span></div>
+                <div class="bill-row"><span>Sale Price:</span><span>PKR ${record.sale_price.toFixed(2)}</span></div>
+                <div class="bill-row total"><span>TOTAL AMOUNT:</span><span>PKR ${record.sale_price.toFixed(2)}</span></div>
+                <div class="bill-row" style="background:#f9f9fb; margin-top:10px; border-bottom:1px dashed #ccc;"><span><strong>📝 Description / Notes:</strong></span><span></span></div>
+                <div class="bill-row" style="border-bottom:none; white-space:pre-wrap;"><span colspan="2">${escapeHtml(descriptionText)}</span></div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-print" onclick="printBillOnly()">🖨️ Print</button>
+                <button class="btn-wa-send" onclick="sendCurrentBillToWhatsApp()">📱 Send via WhatsApp</button>
+                <button class="btn-cancel" onclick="closeBill()">✖ Cancel</button>
+            </div>
+        `;
+        document.getElementById('billContent').innerHTML = billHTML;
+        currentRecordForWhatsApp = record;
+        document.getElementById('billModal').classList.add('active');
+    }
+    
+    function generateBill(record) { generateBillWithActions(record, true); }
+    function printBillOnly() { window.print(); }
+    async function sendCurrentBillToWhatsApp() { if (currentRecordForWhatsApp) { await sendWhatsAppPNG(currentRecordForWhatsApp); closeBill(); } }
+    function closeBill() { document.getElementById('billModal').classList.remove('active'); currentRecordForWhatsApp = null; }
+    
+    window.generateBill = generateBill;
+    window.printBillOnly = printBillOnly;
+    window.sendCurrentBillToWhatsApp = sendCurrentBillToWhatsApp;
+    window.closeBill = closeBill;
+    
+    function updateProfitPreview() { let sale = parseFloat(document.getElementById('sale_price')?.value) || 0; let cost = parseFloat(document.getElementById('cost_price')?.value) || 0; let profit = sale - cost; let span = document.getElementById('dynamicProfit'); if(span) { span.innerText = `PKR ${profit.toFixed(2)}`; span.style.color = profit >= 0 ? '#4ade80' : '#f87171'; } }
+    document.getElementById('sale_price')?.addEventListener('input', updateProfitPreview); document.getElementById('cost_price')?.addEventListener('input', updateProfitPreview);
+    
+    // ==================== FORM SUBMIT (ORIGINAL) ====================
+    document.getElementById('salesForm')?.addEventListener('submit', async (e) => { 
+        e.preventDefault(); 
+        const phone = document.getElementById('buyer_phone').value.trim(); 
+        if (!/^\d{10,15}$/.test(phone)) { showMessage("Invalid phone number", true); return; } 
+        const salePrice = parseFloat(document.getElementById('sale_price').value); 
+        const costPrice = parseFloat(document.getElementById('cost_price').value); 
+        const issue_date = document.getElementById('issue_date').value; 
+        const warranty_duration = parseInt(document.getElementById('warranty_duration').value) || 0; 
+        const warranty_type = document.getElementById('warranty_type').value; 
+        let expiry_date = document.getElementById('expiry_date').value; 
+        if (warranty_duration > 0 && issue_date && !expiry_date) updateExpiryDate(); 
+        expiry_date = document.getElementById('expiry_date').value; 
+        const saleDataObj = { product_code: document.getElementById('product_code').value, product_name: document.getElementById('product_name').value.trim(), buyer_name: document.getElementById('buyer_name').value.trim(), buyer_phone: phone, description: document.getElementById('description').value.trim(), sale_price: salePrice, cost_price: costPrice, issue_date: issue_date, warranty_duration: warranty_duration, warranty_type: warranty_type, expiry_date: expiry_date }; 
+        const newRecord = addSaleRecord(saleDataObj); 
+        showMessage(`Sale saved! Profit: PKR ${(salePrice - costPrice).toFixed(2)}`); 
+        generateBillWithActions(newRecord, true);
+        document.getElementById('salesForm').reset(); 
+        refreshProductCode(); 
+        updateProfitPreview(); 
+        refreshCurrentView(); 
+        if(document.getElementById('issue_date')) document.getElementById('issue_date').valueAsDate = new Date();
+        updateExpiryDate();
+    });
+    
+    // ==================== LOAD REPORTS (ORIGINAL) ====================
+    function loadDailyReport() { 
+        const today = new Date().toDateString(); 
+        const dailySales = salesData.filter(r => new Date(r.sale_date).toDateString() === today); 
+        const totalProfit = dailySales.reduce((s,r) => s + (r.sale_price - r.cost_price), 0); 
+        document.getElementById('dailyCount').innerText = dailySales.length; 
+        let profitElem = document.getElementById('dailyProfit'); 
+        profitElem.innerText = `PKR ${totalProfit.toFixed(2)}`; 
+        profitElem.className = 'card-value ' + (totalProfit >=0 ? 'profit-positive' : 'profit-negative'); 
+        const tbody = document.querySelector('#dailyTable tbody'); 
+        if(dailySales.length === 0) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No sales today</td></tr>'; 
+        else tbody.innerHTML = dailySales.map(r => { 
+            const profit = r.sale_price - r.cost_price; 
+            const warrantyShow = r.expiry_date ? new Date(r.expiry_date).toLocaleDateString() : 'None'; 
+            return `<tr><td>${escapeHtml(r.product_name)} (${escapeHtml(r.product_code)})</td><td>${escapeHtml(r.buyer_name)}</td><td>PKR ${r.sale_price.toFixed(2)}</td><td>PKR ${r.cost_price.toFixed(2)}</td><td style="color:${profit>=0?'#4ade80':'#f87171'}">PKR ${profit.toFixed(2)}</td><td>${warrantyShow}</td><td><button class="bill-btn" onclick='generateBillWithActions(${JSON.stringify(r).replace(/'/g, "&#39;")}, true)'>🧾 Bill</button><button class="delete-btn" onclick="deleteSaleRecord(${r.id})">Del</button></td></tr>`; 
+        }).join(''); 
+    }
+    
+    function renderDetailedSearchResults() { 
+        const filtered = getFilteredSalesData(); 
+        const tbody = document.getElementById('searchDetailsBody'); 
+        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No matching records</td></tr>'; return; } 
+        tbody.innerHTML = filtered.map(r => { 
+            const profit = r.sale_price - r.cost_price; 
+            const expiry = r.expiry_date ? new Date(r.expiry_date).toLocaleDateString() : 'None'; 
+            return `<tr><td>${new Date(r.sale_date).toLocaleDateString()}</td><td>${escapeHtml(r.product_code)}</td><td>${escapeHtml(r.product_name)}</td><td>${escapeHtml(r.buyer_name)}</td><td>PKR ${r.sale_price.toFixed(2)}</td><td style="color:${profit>=0?'#4ade80':'#f87171'}">PKR ${profit.toFixed(2)}</td><td>${expiry}</td><td><button class="bill-btn" onclick='generateBillWithActions(${JSON.stringify(r).replace(/'/g, "&#39;")}, true)'>🧾 Bill</button><button class="delete-btn" onclick="deleteSaleRecord(${r.id})">Del</button></td></tr>`; 
+        }).join(''); 
+    }
+    
+    function loadMonthlyReport() { 
+        const filtered = getFilteredSalesData(); 
+        const groups = {}; 
+        filtered.forEach(r => { 
+            const d = new Date(r.sale_date); 
+            const key = `${d.getFullYear()}-${d.getMonth()}`; 
+            const name = d.toLocaleString('default', { month: 'long', year: 'numeric' }); 
+            if(!groups[key]) groups[key] = { name, count:0, profit:0 }; 
+            groups[key].count++; 
+            groups[key].profit += (r.sale_price - r.cost_price); 
+        }); 
+        const arr = Object.values(groups).sort((a,b)=> new Date(b.name) - new Date(a.name)); 
+        const totalUnits = filtered.length; 
+        const totalProfit = filtered.reduce((s,r)=> s + (r.sale_price - r.cost_price),0); 
+        document.getElementById('histUnits').innerText = totalUnits; 
+        let pSpan = document.getElementById('histProfitVal'); 
+        pSpan.innerText = `PKR ${totalProfit.toFixed(2)}`; 
+        pSpan.className = 'card-value ' + (totalProfit>=0?'profit-positive':'profit-negative'); 
+        const tbody = document.getElementById('historicalTableBody'); 
+        if(arr.length === 0) tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data</td></tr>'; 
+        else tbody.innerHTML = arr.map(item => `<tr><td>${item.name}</td><td>${item.count}</td><td style="color:${item.profit>=0?'#4ade80':'#f87171'}">PKR ${item.profit.toFixed(2)}</td></tr>`).join(''); 
+        renderDetailedSearchResults(); 
+    }
+    
+    function loadYearlyReport() { 
+        const filtered = getFilteredSalesData(); 
+        const groups = {}; 
+        filtered.forEach(r => { 
+            const year = new Date(r.sale_date).getFullYear(); 
+            if(!groups[year]) groups[year] = { year, count:0, profit:0 }; 
+            groups[year].count++; 
+            groups[year].profit += (r.sale_price - r.cost_price); 
+        }); 
+        const arr = Object.values(groups).sort((a,b)=> b.year - a.year); 
+        const totalUnits = filtered.length; 
+        const totalProfit = filtered.reduce((s,r)=> s + (r.sale_price - r.cost_price),0); 
+        document.getElementById('histUnits').innerText = totalUnits; 
+        let pSpan = document.getElementById('histProfitVal'); 
+        pSpan.innerText = `PKR ${totalProfit.toFixed(2)}`; 
+        pSpan.className = 'card-value ' + (totalProfit>=0?'profit-positive':'profit-negative'); 
+        const tbody = document.getElementById('historicalTableBody'); 
+        if(arr.length === 0) tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data</td></tr>'; 
+        else tbody.innerHTML = arr.map(item => `<tr><td>Year ${item.year}</td><td>${item.count}</td><td style="color:${item.profit>=0?'#4ade80':'#f87171'}">PKR ${item.profit.toFixed(2)}</td></tr>`).join(''); 
+        renderDetailedSearchResults(); 
+    }
+    
+    function refreshCurrentView() { 
+        const active = document.querySelector('.tab-pane.active-tab'); 
+        if(active?.id === 'daily-report-tab') loadDailyReport(); 
+        else if(active?.id === 'historical-tab') { 
+            if(currentAnalyticsType === 'monthly') loadMonthlyReport(); 
+            else loadYearlyReport(); 
+        } else if(active?.id === 'intern-tab') renderInternTable(); 
+        else if(active?.id === 'expense-inventory-tab') { loadExpensesAndNet(); loadInventory(); } 
+    }
+    
+    // ==================== NAVIGATION (ORIGINAL) ====================
+    document.querySelectorAll('.nav-btn').forEach(btn => { 
+        btn.addEventListener('click', () => { 
+            const id = btn.getAttribute('data-tab'); 
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); 
+            btn.classList.add('active'); 
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active-tab')); 
+            document.getElementById(id).classList.add('active-tab'); 
+            refreshCurrentView();
+        }); 
+    });
+    
+    document.querySelectorAll('[data-analytics]').forEach(pill => { 
+        pill.addEventListener('click', () => { 
+            document.querySelectorAll('[data-analytics]').forEach(p => p.classList.remove('active-pill')); 
+            pill.classList.add('active-pill'); 
+            currentAnalyticsType = pill.getAttribute('data-analytics'); 
+            if(currentAnalyticsType === 'monthly') loadMonthlyReport(); 
+            else loadYearlyReport(); 
+        }); 
+    });
+    
+    document.getElementById('globalSearchInput')?.addEventListener('input', (e) => { currentSearchTerm = e.target.value; refreshCurrentView(); });
+    document.getElementById('clearSearchBtn')?.addEventListener('click', () => { document.getElementById('globalSearchInput').value = ''; currentSearchTerm = ''; refreshCurrentView(); showMessage('Search cleared'); });
+    document.getElementById('billModal')?.addEventListener('click', (e) => { if(e.target === document.getElementById('billModal')) closeBill(); });
+    
+    // ==================== ENHANCED INTERN MODULE (WITHOUT ID IN DOCS) ====================
+    let interns = JSON.parse(localStorage.getItem('aat_intern_list')) || [];
+    let editingInternId = null;
+    
+    function generateNextInternId() {
+        if(interns.length === 0) return "AAT-001";
+        let maxNum = 0;
+        interns.forEach(intern => {
+            let match = intern.uniqueId?.match(/AAT-(\d+)/);
+            if(match) maxNum = Math.max(maxNum, parseInt(match[1]));
+        });
+        let nextNum = maxNum + 1;
+        return `AAT-${nextNum.toString().padStart(3,'0')}`;
+    }
+    
+    function updateInternEndDate() {
+        const start = document.getElementById('intern_start_date')?.value;
+        const duration = parseInt(document.getElementById('intern_duration')?.value) || 1;
+        if(start) {
+            let d = new Date(start);
+            d.setMonth(d.getMonth() + duration);
+            document.getElementById('intern_end_date').value = d.toISOString().split('T')[0];
+        }
+    }
+    document.getElementById('intern_start_date')?.addEventListener('change', updateInternEndDate);
+    document.getElementById('intern_duration')?.addEventListener('input', updateInternEndDate);
+    if(document.getElementById('intern_start_date')) document.getElementById('intern_start_date').valueAsDate = new Date();
+    updateInternEndDate();
+    
+    function renderInternTable() {
+        const searchTerm = document.getElementById('internSearchInput')?.value.toLowerCase() || "";
+        let filtered = interns;
+        if(searchTerm) {
+            filtered = interns.filter(i => i.name.toLowerCase().includes(searchTerm) || i.uniqueId.toLowerCase().includes(searchTerm));
+        }
+        const tbody = document.getElementById('internTableBody');
+        if(!tbody) return;
+        tbody.innerHTML = filtered.map(i => `<tr>
+            <td><strong>${escapeHtml(i.uniqueId)}</strong></td>
+            <td><b>${escapeHtml(i.name)}</b><br><small>${escapeHtml(i.email)}<br>${escapeHtml(i.phone)}</small></td>
+            <td>${escapeHtml(i.field)}</td>
+            <td>${i.start} to ${i.end}</td>
+            <td>
+                <button class="btn-action btn-edit" onclick="editIntern(${i.id})">✏️ Edit</button>
+                <button class="btn-action btn-offer" onclick="showOffer(${i.id})">Offer</button>
+                <button class="btn-action btn-cert" onclick="showCert(${i.id})">Cert</button>
+                <button class="btn-action btn-lor" onclick="showLOR(${i.id})">LOR</button>
+                <button class="btn-action btn-del" onclick="deleteIntern(${i.id})">🗑️</button>
+            </td>
+        </tr>`).join('');
+    }
+    
+    function resetInternForm() {
+        document.getElementById('internForm').reset();
+        document.getElementById('intern_unique_id').value = generateNextInternId();
+        editingInternId = null;
+        document.getElementById('internSubmitBtn').innerHTML = '💾 Register Intern';
+        document.getElementById('cancelEditInternBtn').style.display = 'none';
+        if(document.getElementById('intern_start_date')) document.getElementById('intern_start_date').valueAsDate = new Date();
+        updateInternEndDate();
+    }
+    
+    window.editIntern = (id) => {
+        const intern = interns.find(i => i.id === id);
+        if(!intern) return;
+        editingInternId = id;
+        document.getElementById('intern_unique_id').value = intern.uniqueId;
+        document.getElementById('intern_name').value = intern.name;
+        document.getElementById('intern_email').value = intern.email;
+        document.getElementById('intern_phone').value = intern.phone;
+        document.getElementById('intern_field').value = intern.field;
+        document.getElementById('intern_start_date').value = intern.start;
+        const duration = (() => {
+            let start = new Date(intern.start);
+            let end = new Date(intern.end);
+            let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+            return months > 0 ? months : 1;
+        })();
+        document.getElementById('intern_duration').value = duration;
+        updateInternEndDate();
+        document.getElementById('internSubmitBtn').innerHTML = '✏️ Update Intern';
+        document.getElementById('cancelEditInternBtn').style.display = 'inline-block';
+        showMessage("Editing mode: Modify details and click Update. Intern ID cannot be changed.", false);
+    };
+    
+    document.getElementById('cancelEditInternBtn')?.addEventListener('click', () => resetInternForm());
+    
+    document.getElementById('internForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const uniqueId = document.getElementById('intern_unique_id').value;
+        const name = document.getElementById('intern_name').value;
+        const email = document.getElementById('intern_email').value;
+        const phone = document.getElementById('intern_phone').value;
+        const field = document.getElementById('intern_field').value;
+        const start = document.getElementById('intern_start_date').value;
+        const end = document.getElementById('intern_end_date').value;
+        
+        if(editingInternId !== null) {
+            const index = interns.findIndex(i => i.id === editingInternId);
+            if(index !== -1) {
+                interns[index] = { ...interns[index], name, email, phone, field, start, end };
+                localStorage.setItem('aat_intern_list', JSON.stringify(interns));
+                showMessage(`Intern ${name} updated successfully! (ID: ${interns[index].uniqueId} unchanged)`);
+                resetInternForm();
+                renderInternTable();
+            }
+        } else {
+            const newId = generateNextInternId();
+            const intern = { id: Date.now(), uniqueId: newId, name, email, phone, field, start, end };
+            interns.push(intern);
+            localStorage.setItem('aat_intern_list', JSON.stringify(interns));
+            showMessage(`Intern registered with ID: ${newId}`);
+            resetInternForm();
+            renderInternTable();
+        }
+        editingInternId = null;
+        document.getElementById('internSubmitBtn').innerHTML = '💾 Register Intern';
+        document.getElementById('cancelEditInternBtn').style.display = 'none';
+        e.target.reset();
+        document.getElementById('intern_unique_id').value = generateNextInternId();
+        if(document.getElementById('intern_start_date')) document.getElementById('intern_start_date').valueAsDate = new Date();
+        updateInternEndDate();
+    });
+    
+    document.getElementById('internSearchInput')?.addEventListener('input', () => renderInternTable());
+    
+    window.deleteIntern = (id) => {
+        if(confirm('Delete this intern record permanently?')) {
+            interns = interns.filter(i => i.id !== id);
+            localStorage.setItem('aat_intern_list', JSON.stringify(interns));
+            renderInternTable();
+            showMessage("Intern deleted");
+            if(editingInternId === id) resetInternForm();
+        }
+    };
+    
+    // ==================== INTERN DOCUMENTS (ID REMOVED) ====================
+    let currentActiveIntern = null, currentDocType = "";
+    const getOfficialStamp = () => `<div class="stamp"><span style="font-size:10px">AAT Elite Services</span><span>Authorized</span><span style="font-size:10px">Official</span></div><div class="signature">Tahir<div class="sig-sub">Head of AAT Elite Services</div></div>`;
+    function openInternModal(html, intern, type) { currentActiveIntern = intern; currentDocType = type; const modal = document.getElementById('internDocModal'); if(modal) { document.getElementById('internPrintArea').innerHTML = html; modal.classList.add('active'); } }
+    window.closeInternModal = () => { document.getElementById('internDocModal')?.classList.remove('active'); };
+    window.showOffer = (id) => { const i = interns.find(x => x.id == id); const html = `<div class="a4-portrait"><h2 style="color:#8b5cf6; border-bottom:2px solid #8b5cf6;">OFFER LETTER</h2><hr><br><p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p><br><p><strong>To:</strong><br>${escapeHtml(i.name)}</p><br><p><strong>Subject:</strong> Internship Offer – ${escapeHtml(i.field)}</p><br><p>Dear ${escapeHtml(i.name)},</p><br><p>We are pleased to extend to you an offer for the position of <strong>${escapeHtml(i.field)} Intern</strong> at <strong>AAT Elite Services</strong>. Your internship is scheduled to commence on <strong>${i.start}</strong> and will conclude on <strong>${i.end}</strong>.</p><br><p>During this period, you will have the opportunity to develop your skills, contribute to ongoing projects, and gain valuable professional experience within our team. We are confident that your creativity and dedication will be a valuable addition to our organization.</p><br><p>Please confirm your acceptance of this offer at your earliest convenience. Should you have any questions or require further information, feel free to contact us.</p><br><p>We look forward to welcoming you to AAT Elite Services and wish you a successful and rewarding internship experience.</p><br><p>Yours sincerely,</p>${getOfficialStamp()}</div>`; openInternModal(html, i, "Internship Offer Letter"); };
+    window.showCert = (id) => { const i = interns.find(x => x.id == id); const html = `<div class="a4-landscape"><div style="text-align:center; height:100%; border:2px solid #ddd; padding:40px;"><h3 style="letter-spacing:5px; color:#8b5cf6;">CERTIFICATE OF INTERNSHIP</h3><br><br><p style="font-size:20px;">This is to certify that</p><h1 style="font-size:45px; margin:20px 0;">${escapeHtml(i.name)}</h1><div style="width:60%; height:2px; background:#8b5cf6; margin:0 auto;"></div><br><p style="font-size:18px;">Has successfully completed a professional internship in <b style="color:#8b5cf6;">${escapeHtml(i.field)}</b><br>from ${i.start} to ${i.end}. Demonstrated outstanding performance.</p><br><p>Issue Date: ${new Date().toLocaleDateString()}</p>${getOfficialStamp()}</div></div>`; openInternModal(html, i, "Internship Certificate"); };
+    window.showLOR = (id) => { const i = interns.find(x => x.id == id); const html = `<div class="a4-portrait"><h2 style="color:#8b5cf6; text-align:center;">LETTER OF RECOMMENDATION</h2><br><br><p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p><br><p><strong>To Whom It May Concern,</strong></p><br><p>It is with great enthusiasm that I recommend <strong>${escapeHtml(i.name)}</strong> for any professional opportunity. They served as a <strong>${escapeHtml(i.field)} Intern</strong> at <strong>AAT Elite Services</strong> from ${i.start} to ${i.end}.</p><br><p>During their tenure, ${escapeHtml(i.name)} consistently demonstrated strong technical attitude and pro-active attitude, and the ability to tackle complex challenges. Their dedication to learning and contributing to real-world projects was exemplary. We are confident that they will bring the same level of excellence and integrity to any future endeavor.</p><br><p>I give my highest recommendation without reservation. Should you require further information, please do not hesitate to contact us.</p><br><p>Yours sincerely,</p>${getOfficialStamp()}</div>`; openInternModal(html, i, "Letter of Recommendation"); };
+    async function downloadInternDocPDF() { if(!currentActiveIntern) return; const element = document.getElementById('internPrintArea'); const filename = `${currentActiveIntern.name.replace(/\s+/g, '_')}_${currentDocType.replace(/\s+/g, '_')}.pdf`; const orientation = (currentDocType === "Internship Certificate" ? 'landscape' : 'portrait'); const opt = { margin: 0, filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: orientation } }; showMessage("Generating PDF..."); try { await html2pdf().set(opt).from(element).save(); showMessage("PDF Downloaded!"); } catch(e) { showMessage("PDF error", true); } }
+    document.getElementById('downloadPdfBtn')?.addEventListener('click', downloadInternDocPDF);
+    async function sendDocViaGmail() { if(!currentActiveIntern) return; const subject = encodeURIComponent(`Official ${currentDocType} - AAT Elite Services`); const body = encodeURIComponent(`Assalam-o-Alaikum ${currentActiveIntern.name},\n\nPlease find attached your official ${currentDocType} from AAT Elite Services.\n\nRegards,\nTahir\nHead of AAT Elite Services`); window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${currentActiveIntern.email}&su=${subject}&body=${body}`, '_blank'); showMessage("Opened Gmail. Please attach PDF from downloads."); }
+    document.getElementById('sendGmailBtn')?.addEventListener('click', sendDocViaGmail);
+    
+    // ==================== EXPENSE & INVENTORY (ORIGINAL) ====================
+    let expenses = JSON.parse(localStorage.getItem('aat_expenses')) || [];
+    let inventory = JSON.parse(localStorage.getItem('aat_inventory')) || [];
+    function saveExpenses() { localStorage.setItem('aat_expenses', JSON.stringify(expenses)); loadExpensesAndNet(); }
+    function saveInventory() { localStorage.setItem('aat_inventory', JSON.stringify(inventory)); loadInventory(); }
+    function loadExpensesAndNet() { const currentMonth = new Date().getMonth(); const currentYear = new Date().getFullYear(); const monthExpenses = expenses.filter(e => { let d = new Date(e.date); return d.getMonth() === currentMonth && d.getFullYear() === currentYear; }).reduce((s,e)=> s+e.amount,0); document.getElementById('totalExpensesMonth').innerText = `PKR ${monthExpenses.toFixed(2)}`; const salesProfit = salesData.reduce((s,r)=> s + (r.sale_price - r.cost_price),0); const netAfter = salesProfit - monthExpenses; const netElem = document.getElementById('netProfitAfterExpenses'); netElem.innerText = `PKR ${netAfter.toFixed(2)}`; netElem.className = 'card-value ' + (netAfter>=0?'profit-positive':'profit-negative'); const tbody = document.getElementById('expenseTbody'); if(tbody) tbody.innerHTML = expenses.map((e,i)=> `<tr><td>${escapeHtml(e.title)}</td><td>PKR ${e.amount.toFixed(2)}</td><td>${e.date}</td><td><button class="delete-btn" onclick="deleteExpense(${i})">Del</button></td>`).join(''); }
+    function deleteExpense(idx) { expenses.splice(idx,1); saveExpenses(); }
+    window.deleteExpense = deleteExpense;
+    document.getElementById('expenseForm')?.addEventListener('submit', (e) => { e.preventDefault(); const title = document.getElementById('expTitle').value; const amount = parseFloat(document.getElementById('expAmount').value); const date = document.getElementById('expDate').value; expenses.push({title, amount, date}); saveExpenses(); e.target.reset(); showMessage("Expense added"); });
+    function loadInventory() { const tbody = document.getElementById('inventoryTbody'); if(tbody) tbody.innerHTML = inventory.map((item, idx)=> { const remaining = item.stock - item.sold; return `<tr><td>${item.category}</td><td>${item.name}</td><td>${item.stock}</td><td>${item.sold}</td><td style="color:${remaining<0?'red':'#4ade80'}">${remaining}</td><td><button class="delete-btn" onclick="deleteInventory(${idx})">Del</button></td>`; }).join(''); }
+    function deleteInventory(idx) { inventory.splice(idx,1); saveInventory(); }
+    window.deleteInventory = deleteInventory;
+    document.getElementById('inventoryForm')?.addEventListener('submit', (e) => { e.preventDefault(); const category = document.getElementById('invCategory').value; const name = document.getElementById('invName').value; const stock = parseInt(document.getElementById('invStock').value); const sold = parseInt(document.getElementById('invSold').value); inventory.push({category, name, stock, sold}); saveInventory(); e.target.reset(); showMessage("Stock item added"); });
+    function downloadCSV(csv, filename) { const blob = new Blob([csv], {type: "text/csv"}); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = filename; link.click(); showMessage(`Exported ${filename}`); }
+    document.getElementById('exportExpenseBtn')?.addEventListener('click', ()=> { let csv = "Title,Amount,Date\n"+expenses.map(e=>`${e.title},${e.amount},${e.date}`).join("\n"); downloadCSV(csv, "expenses.csv"); });
+    document.getElementById('exportInventoryBtn')?.addEventListener('click', ()=> { let csv = "Category,Product,Total,Sold,Remaining\n"+inventory.map(i=>`${i.category},${i.name},${i.stock},${i.sold},${i.stock-i.sold}`).join("\n"); downloadCSV(csv, "inventory.csv"); });
+    
+    // ==================== INITIALIZE ====================
+    loadSalesData(); updateProfitPreview(); loadDailyReport(); loadMonthlyReport(); refreshProductCode(); resetInternForm(); renderInternTable(); loadExpensesAndNet(); loadInventory();
+    if(document.getElementById('issue_date')) document.getElementById('issue_date').valueAsDate = new Date();
+    updateExpiryDate();
+</script>
+</body>
+</html>
